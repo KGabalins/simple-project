@@ -2,6 +2,8 @@
 Team: Karlis and Janis
 Build the image using the following command
 
+Development branch is created!
+
 ```bash
 $ docker build -t simple-flask-app:latest .
 ```
