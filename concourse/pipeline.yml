@@ -1,6 +1,6 @@
 ---
 resources:
-  - name: resource-tutorial
+  - name: KGProject-resource
     type: git
     source:
       uri: https://github.com/KGabalins/simple-project.git
@@ -10,6 +10,6 @@ jobs:
   - name: job-hello-world
     public: true
     plan:
-      - get: resource-tutorial
+      - get: KGProject-resource
       - task: hello-world
-        file: resource-tutorial/tutorials/basic/task-hello-world/task_hello_world.yml
+        file: KGProject-resource/simple-project/concourse/tasks/task_hello_world.yml
