@@ -1,5 +1,5 @@
 # Simple Python Flask Dockerized Application#
-
+Team: Karlis and Janis
 Build the image using the following command
 
 ```bash
