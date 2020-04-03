@@ -1,0 +1,15 @@
+---
+resources:
+  - name: KGProject-resource
+    type: git
+    source:
+      uri: https://github.com/KGabalins/simple-project.git
+      branch: master
+
+jobs:
+  - name: job-hello-world
+    public: true
+    plan:
+      - get: KGProject-resource
+      - task: hello-world
+        file: KGProject-resource/concourse/tasks/experiments/task_hello_karlis.yml
