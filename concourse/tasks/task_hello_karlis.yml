@@ -3,7 +3,9 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: kgflask/1.0.0}
+  source: 
+    repository: kgflask
+    tag: 1.0.0
 
 run:
   path: echo
