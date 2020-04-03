@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source: 
-    repository: kgflask
+    repository: kgabalins/kgflask
     tag: 1.0.0
 
 run:
