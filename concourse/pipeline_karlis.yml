@@ -12,4 +12,4 @@ jobs:
     plan:
       - get: KGProject-resource
       - task: hello-world
-        file: KGProject-resource/concourse/tasks/task_hello_world.yml
+        file: KGProject-resource/concourse/tasks/task_hello_karlis.yml
