@@ -45,6 +45,10 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(titles)
 }
 
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Hello world")
+}
+
 func main() {
 	log.Print("Prepare db...")
 	if err := prepare(); err != nil {
@@ -54,6 +58,7 @@ func main() {
 	log.Print("Listening 8000")
 	r := mux.NewRouter()
 	r.HandleFunc("/", blogHandler)
+	r.HandleFunc("/hello", helloHandler())
 	log.Fatal(http.ListenAndServe(":8000", handlers.LoggingHandler(os.Stdout, r)))
 }
 
