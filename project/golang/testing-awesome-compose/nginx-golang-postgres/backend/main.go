@@ -83,7 +83,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func processHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST"{
+	if r.Method != "POST" {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
@@ -91,12 +91,12 @@ func processHandler(w http.ResponseWriter, r *http.Request) {
 	fname := r.FormValue("firstname")
 	lname := r.FormValue("lastname")
 
-	d := struct{
-		First: string
-		Last: string
+	d := struct {
+		First string
+		Last  string
 	}{
 		First: fname,
-		Last: lname,
+		Last:  lname,
 	}
 
 	tpl.ExecuteTemplate(w, "processor.htm", d)
