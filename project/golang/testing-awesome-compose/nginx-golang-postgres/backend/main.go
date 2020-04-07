@@ -45,6 +45,28 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(titles)
 }
 
+func appleHandler(w http.ResponseWriter, r *http.Request) {
+	db, err := connect()
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+	defer db.Close()
+
+	rows, err := db.Query("SELECT title FROM apples")
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+	var titles []string
+	for rows.Next() {
+		var title string
+		err = rows.Scan(&title)
+		titles = append(titles, title)
+	}
+	json.NewEncoder(w).Encode(titles)
+}
+
 func helloHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello World!")
 }
@@ -59,6 +81,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", blogHandler)
 	r.HandleFunc("/hello", helloHandler)
+	r.HandleFunc("/apples", helloHandler)
 	log.Fatal(http.ListenAndServe(":8000", handlers.LoggingHandler(os.Stdout, r)))
 }
 
