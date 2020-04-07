@@ -81,7 +81,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", blogHandler)
 	r.HandleFunc("/hello", helloHandler)
-	r.HandleFunc("/apples", helloHandler)
+	r.HandleFunc("/apples", appleHandler)
 	log.Fatal(http.ListenAndServe(":8000", handlers.LoggingHandler(os.Stdout, r)))
 }
 
