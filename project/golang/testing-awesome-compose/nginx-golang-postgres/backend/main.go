@@ -46,7 +46,7 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello World! %s", r)
+	fmt.Fprint(w, "Hello World! %s")
 }
 
 func main() {
@@ -58,7 +58,7 @@ func main() {
 	log.Print("Listening 8000")
 	r := mux.NewRouter()
 	r.HandleFunc("/", blogHandler)
-	r.HandleFunc("/hello", helloHandler())
+	r.HandleFunc("/hello", helloHandler)
 	log.Fatal(http.ListenAndServe(":8000", handlers.LoggingHandler(os.Stdout, r)))
 }
 
