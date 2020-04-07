@@ -30,7 +30,7 @@ func connect() (*sql.DB, error) {
 	return sql.Open("postgres", fmt.Sprintf("postgres://postgres:%s@db:5432/example?sslmode=disable", string(bin)))
 }
 
-func index(w http.ResponseWriter, r *http.Request) {
+func indexHandler(w http.ResponseWriter, r *http.Request) {
 	tpl.ExecuteTemplate(w, "index.htm", nil)
 }
 
@@ -84,7 +84,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 
 func processHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		http.Redirect(w, r, "/index", http.StatusSeeOther)
 		return
 	}
 
@@ -114,6 +114,7 @@ func main() {
 	r.HandleFunc("/hello", helloHandler)
 	r.HandleFunc("/apples", appleHandler)
 	r.HandleFunc("/process", processHandler)
+	r.HandleFunc("/index", indexHandler)
 	log.Fatal(http.ListenAndServe(":8000", handlers.LoggingHandler(os.Stdout, r)))
 }
 
