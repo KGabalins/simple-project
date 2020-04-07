@@ -46,7 +46,7 @@ func blogHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello World! %s")
+	fmt.Fprint(w, "Hello World!")
 }
 
 func main() {
