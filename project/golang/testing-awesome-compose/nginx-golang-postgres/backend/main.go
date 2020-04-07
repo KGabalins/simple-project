@@ -89,5 +89,19 @@ func prepare() error {
 			return err
 		}
 	}
+
+	if _, err := db.Exec("DROP TABLE IF EXISTS apples"); err != nil {
+		return err
+	}
+
+	if _, err := db.Exec("CREATE TABLE IF NOT EXISTS apples (id SERIAL, title VARCHAR)"); err != nil {
+		return err
+	}
+
+	for i := 0; i <= 5; i++ {
+		if _, err := db.Exec("INSERT INTO apples (title) VALUES ($1);", fmt.Sprintf("Apple number #%d", i)); err != nil {
+			return err
+		}
+	}
 	return nil
 }
