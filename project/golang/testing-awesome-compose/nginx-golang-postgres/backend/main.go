@@ -8,7 +8,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"text/template"
 	"time"
 
 	"github.com/gorilla/handlers"
@@ -16,22 +15,12 @@ import (
 	_ "github.com/lib/pq"
 )
 
-var tpl *template.Template
-
-func init() {
-	tpl = template.Must(template.ParseGlob("templates/*html"))
-}
-
 func connect() (*sql.DB, error) {
 	bin, err := ioutil.ReadFile("/run/secrets/db-password")
 	if err != nil {
 		return nil, err
 	}
 	return sql.Open("postgres", fmt.Sprintf("postgres://postgres:%s@db:5432/example?sslmode=disable", string(bin)))
-}
-
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	tpl.ExecuteTemplate(w, "index.html", nil)
 }
 
 func blogHandler(w http.ResponseWriter, r *http.Request) {
@@ -82,26 +71,6 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Hello World!")
 }
 
-func processHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		http.Redirect(w, r, "/index", http.StatusSeeOther)
-		return
-	}
-
-	fname := r.FormValue("firstname")
-	lname := r.FormValue("lastname")
-
-	d := struct {
-		First string
-		Last  string
-	}{
-		First: fname,
-		Last:  lname,
-	}
-
-	tpl.ExecuteTemplate(w, "processor.html", d)
-}
-
 func main() {
 	log.Print("Prepare db...")
 	if err := prepare(); err != nil {
@@ -113,8 +82,6 @@ func main() {
 	r.HandleFunc("/", blogHandler)
 	r.HandleFunc("/hello", helloHandler)
 	r.HandleFunc("/apples", appleHandler)
-	r.HandleFunc("/process", processHandler)
-	r.HandleFunc("/index", indexHandler)
 	log.Fatal(http.ListenAndServe(":8000", handlers.LoggingHandler(os.Stdout, r)))
 }
 
