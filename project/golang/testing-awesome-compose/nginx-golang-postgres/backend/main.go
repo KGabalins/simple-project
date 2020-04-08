@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -22,16 +21,6 @@ func connect() (*sql.DB, error) {
 		return nil, err
 	}
 	return sql.Open("postgres", fmt.Sprintf("postgres://postgres:%s@db:5432/example?sslmode=disable", string(bin)))
-}
-
-var tpl *template.Template
-
-func init() {
-	tpl = template.Must(template.ParseGlob("/simple-project/project/golang/testing-awesome-compose/nginx-golang-postgres/templates/*.html"))
-}
-
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	tpl.ExecuteTemplate(w, "index.html", nil)
 }
 
 func blogHandler(w http.ResponseWriter, r *http.Request) {
@@ -93,7 +82,6 @@ func main() {
 	r.HandleFunc("/", blogHandler)
 	r.HandleFunc("/hello", helloHandler)
 	r.HandleFunc("/apples", appleHandler)
-	r.HandleFunc("/index", indexHandler)
 	log.Fatal(http.ListenAndServe(":8000", handlers.LoggingHandler(os.Stdout, r)))
 }
 
