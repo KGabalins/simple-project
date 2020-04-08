@@ -19,7 +19,7 @@ import (
 var tpl *template.Template
 
 func init() {
-	tpl = template.Must(template.ParseGlob("templates/*htm"))
+	tpl = template.Must(template.ParseGlob("templates/*html"))
 }
 
 func connect() (*sql.DB, error) {
@@ -31,7 +31,7 @@ func connect() (*sql.DB, error) {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	tpl.ExecuteTemplate(w, "index.htm", nil)
+	tpl.ExecuteTemplate(w, "index.html", nil)
 }
 
 func blogHandler(w http.ResponseWriter, r *http.Request) {
@@ -99,7 +99,7 @@ func processHandler(w http.ResponseWriter, r *http.Request) {
 		Last:  lname,
 	}
 
-	tpl.ExecuteTemplate(w, "processor.htm", d)
+	tpl.ExecuteTemplate(w, "processor.html", d)
 }
 
 func main() {
