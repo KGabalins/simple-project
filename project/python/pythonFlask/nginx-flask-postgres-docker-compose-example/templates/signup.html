@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
 <body>
-        <h1 class="serif"> Hello, please sign up! </h1>
+        <h1 class="sansserif"> Hello, please sign up! </h1>
         <form class="serif" method="POST" action="/">
             {{ form.csrf_token }}
             {{ form.name.label }} {{ form.name(size=20) }}
