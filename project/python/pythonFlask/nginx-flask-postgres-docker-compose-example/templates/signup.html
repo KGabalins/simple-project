@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-    <body>
-        <h1> Hello, please sign up! </h1>
-        <form method="POST" action="/">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+        <h1 class="serif"> Hello, please sign up! </h1>
+        <form class="serif" method="POST" action="/">
             {{ form.csrf_token }}
             {{ form.name.label }} {{ form.name(size=20) }}
             {{ form.email.label }} {{ form.email(size=20) }}
