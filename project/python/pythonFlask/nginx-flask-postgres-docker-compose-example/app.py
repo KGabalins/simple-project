@@ -1,7 +1,7 @@
 import datetime
 import os
 
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from forms import SignupForm
 
 from models import Signups
@@ -10,19 +10,32 @@ from database import db_session
 app = Flask(__name__)
 app.secret_key = os.environ['APP_SECRET_KEY']
 
-@app.route("/", methods=('GET', 'POST'))
+@app.route("/")
+def home():
+    return render_template('home.html')
+
+@app.route("/signup", methods=('GET', 'POST'))
 def signup():
     form = SignupForm()
-    if form.validate_on_submit():
+    if form.validate_on_submit() and request.method == "POST":
         signup = Signups(name=form.name.data, email=form.email.data, date_signed_up=datetime.datetime.now())
         db_session.add(signup)
         db_session.commit()
-        return redirect(url_for('success')) 
-    return render_template('signup.html', form=form)
+        return render_template('games.html')
+    else:
+        return render_template('signup.html', form=form)
 
-@app.route("/success")
-def success():
-    return "Malacis!"
+@app.route("/login", methods=('GET', 'POST'))
+def login():
+    form = SignupForm()
+    if request.method == "GET":
+        return render_template('login.html', form=form)
+    else:
+        return render_template('games.html')
+
+@app.route('/games')
+def games():
+    return render_template('games.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5090, debug=True)
