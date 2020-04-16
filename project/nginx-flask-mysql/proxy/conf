@@ -1,8 +1,11 @@
 server {
     listen       80;
     server_name  localhost;
-    location / {
+    location /backend {
         proxy_pass   http://backend:5000;
+    }
+    location /app1 {
+        proxy_pass   http://app1:5001;
     }
 
 }
