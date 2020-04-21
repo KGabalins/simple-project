@@ -1,3 +1,6 @@
+# Vajadzigas pakas prieks Python 
+# $ pip install `nosasukums`
+
 Flask==1.1.2
 Flask-WTF==0.14.3
 WTForms==2.2.1
