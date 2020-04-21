@@ -1,1 +1,1 @@
-On this project we learn how to use DevOps tools.
+Creating a Blog Website using Python Flask!
