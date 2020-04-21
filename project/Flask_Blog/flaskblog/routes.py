@@ -1,28 +1,20 @@
-# Aplikācijas palaišana
-from flask import Flask, render_template, url_for, flash, redirect
-from flask_sqlalchemy import SQLAlchemy
-from forms import RegistrationForm, LoginForm
-from models import User, Post
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blogSite.db'
-app.config['SECRET_KEY'] = 'fc1fe1d849a56333d60b3b09839d2529'
-# Izveidota datubaazes instance
-db = SQLAlchemy(app)
-
+from flask import render_template, url_for, flash, redirect
+from flaskblog import app
+from flaskblog.forms import RegistrationForm, LoginForm
+from flaskblog.models import User, Post
 
 posts = [
     {
         'author': 'Karlis Gabalins',
         'title': 'Blog Post 1',
         'content': 'First post content',
-        'date_posted': 'April 21, 2020'
+        'date_posted': 'April 20, 2020'
     },
     {
-        'author': 'Janis Banis',
+        'author': 'Janis banis',
         'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 22, 2020'
+        'content': 'Secibd post content',
+        'date_posted': 'April 21, 2020'
     }
 ]
 
@@ -53,7 +45,3 @@ def login():
         else:
             flash('Login Unsuccessful. Please check your email and password!', 'danger')
     return render_template('login.html', title='Login' , form=form)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
