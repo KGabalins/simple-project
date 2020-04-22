@@ -1,12 +1,14 @@
 # Formu klases izveide
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flaskblog.models import User
 from flask_login import current_user
 
 # Reģistrēšanās formas klase
 class RegistrationForm(FlaskForm):
+
     username = StringField('Username',
                             validators=[DataRequired(), Length(min=2, max=20)])
     
@@ -39,6 +41,7 @@ class RegistrationForm(FlaskForm):
 
 # Pieslēgšanās formas klase
 class LoginForm(FlaskForm):  
+
     email = StringField('Email',
                             validators=[DataRequired(), Email()])
 
@@ -56,6 +59,8 @@ class UpdateAccountForm(FlaskForm):
     
     email = StringField('Email',
                             validators=[DataRequired(), Email()])
+
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
 
     submit = SubmitField('Update')
 
@@ -76,3 +81,10 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('This email is already in use!')
+
+class PostForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+
+    content = TextAreaField('Content', validators=[DataRequired()])
+
+    submit = SubmitField('Post')
