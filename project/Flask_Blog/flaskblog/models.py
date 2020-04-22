@@ -1,3 +1,4 @@
+# Datubāzes moduļu pārvaldītājs
 from datetime import datetime
 from flaskblog import db, login_manager
 from flask_login import UserMixin
@@ -6,6 +7,7 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# Datubāzes lietotāja (user) tabulas modeļu izveide
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -17,6 +19,7 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}, {self.email}, {self.image_file}')"
 
+# Datubāzes rakstu (post) tabulas modeļu izveide
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)

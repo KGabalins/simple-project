@@ -1,3 +1,4 @@
+# Mājaslapas maršrutu pārvaldītājs
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm
