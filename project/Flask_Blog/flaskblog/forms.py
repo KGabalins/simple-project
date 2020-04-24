@@ -6,8 +6,8 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from flaskblog.models import User
 from flask_login import current_user
 
-# Reģistrēšanās formas klase
 class RegistrationForm(FlaskForm):
+    # Klase, kura nosaka kādi parametri būs jaievada Reģistrēšanās formā
 
     username = StringField('Username',
                             validators=[DataRequired(), Length(min=2, max=20)])
@@ -23,24 +23,24 @@ class RegistrationForm(FlaskForm):
 
     submit = SubmitField('Sign Up')
 
-    # Funkcija kas parbauda vai Username jau eksiste
     def validate_username(self, username):
+        # Funkcija kas parbaudīs vai lietotajvārds datubāzē jau eksistē
 
-        # Query, kas parbauda vai User tabula ir jau Username ar tadu pasu nosaukumu
         user = User.query.filter_by(username=username.data).first()
+        # Query, kas meklēs ievadīto lietotājvardu datubāzē.
         if user:
             raise ValidationError('This username is already in use!')
 
-    # Funkcija kas parbauda vai Email jau eksiste
     def validate_email(self, email):
+        # Funkcija kas parbaudīs vai e-pasts datubāzē jau eksistē
 
-        # Query, kas parbauda vai User tabula Email jau eksiste ar tadu pasu nosaukumu
         user = User.query.filter_by(email=email.data).first()
+        # Query, kas meklēs ievadīto e-pastu datubāzē.
         if user:
             raise ValidationError('This email is already in use!')
 
-# Pieslēgšanās formas klase
-class LoginForm(FlaskForm):  
+class LoginForm(FlaskForm): 
+    # Klase, kura nosaka kādi parametri būs jaievada Pieslēgšanās formā
 
     email = StringField('Email',
                             validators=[DataRequired(), Email()])
@@ -52,37 +52,44 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Sign In')
 
-# Reģistrēšanās formas klase
 class UpdateAccountForm(FlaskForm):
+    # Klase, kura nosaka kādi parametri būs jaievada Porfilu Atjaunošanas formā
+
     username = StringField('Username',
                             validators=[DataRequired(), Length(min=2, max=20)])
     
     email = StringField('Email',
                             validators=[DataRequired(), Email()])
 
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField('Update Profile Picture',
+                         validators=[FileAllowed(['jpg', 'png'])])
 
     submit = SubmitField('Update')
 
-    # Funkcija kas parbauda vai Username jau eksiste
     def validate_username(self, username):
+        # Funkcija, kas pārbauda vai ievadītais lietotājvārds ir derīgs.
+
         if username.data != current_user.username:
-            # Query, kas parbauda vai User tabula ir jau Username ar tadu pasu nosaukumu
+            # Pārbaude, vai ievadītais lietotājvards nav vienāds ar pašreizējo lietotājvārdu
             user = User.query.filter_by(username=username.data).first()
+            # Query, kas meklēs ievadīto lietotājvardu datubāzē.
             if user:
                 raise ValidationError('This username is already in use!')
 
 
-    # Funkcija kas parbauda vai Email jau eksiste
     def validate_email(self, email):
+        # Funkcija, kas pārbauda vai ievadītais e-pasts ir derīgs.
 
         if email.data != current_user.email:
-            # Query, kas parbauda vai User tabula Email jau eksiste ar tadu pasu nosaukumu
+            # Pārbaude, vai ievadītais e-pasts nav vienāds ar pašreizējo e-pastu
             user = User.query.filter_by(email=email.data).first()
+            # Query, kas meklēs ievadīto e-pastu datubāzē.
             if user:
                 raise ValidationError('This email is already in use!')
 
 class PostForm(FlaskForm):
+    # Klase, kura nosaka kādi parametri būs jaievada Rakstu Publicēšanas formā
+
     title = StringField('Title', validators=[DataRequired()])
 
     content = TextAreaField('Content', validators=[DataRequired()])

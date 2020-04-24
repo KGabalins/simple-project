@@ -1,3 +1,4 @@
+# Dependency managment
 # Vajadzigas pakas prieks Python 
 # $ pip install `nosasukums`
 
