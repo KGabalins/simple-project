@@ -95,7 +95,18 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('account.html', title='Account', image_file=image_file, form=form)
+    return render_template('account.html', title='Account', image_file=image_file, form=form, user=current_user)
+
+@app.route('/account/<user_name>', methods=['GET'])
+def accountView(user_name):
+    user = User.query.filter_by(username=user_name).first()
+    if user and user != current_user:
+        image_file = url_for('static', filename='profile_pics/' + user.image_file)
+        return render_template('account.html', title='Account', image_file=image_file, user=user)
+    else:
+        return redirect(url_for('account'))
+    return "This user doesn't exist!"
+
 
 @app.route('/post/new', methods=['GET', 'POST'])
 # Jaunu rakstu izveides maršruts

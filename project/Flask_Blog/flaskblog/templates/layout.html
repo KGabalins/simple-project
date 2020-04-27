@@ -63,15 +63,13 @@
             </div>
             <div class="col-md-4">
                 <div class="content-section">
-                    <h3>Our Sidebar</h3>
-                    <p class='text-muted'>You can put any information here you'd like.
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-light">Latest Posts</li>
-                        <li class="list-group-item list-group-item-light">Announcements</li>
-                        <li class="list-group-item list-group-item-light">Calendars</li>
-                        <li class="list-group-item list-group-item-light">etc</li>
-                    </ul>
-                    </p>
+                    {% if current_user.is_authenticated %}
+                        <h3>Logged in as: </h3>
+                        <h4><img class="rounded-circle logged-in-img" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="">
+                        <a style="color: black;" href="{{url_for('account')}}">{{ current_user.username }}</a></h4>
+                    {% else %}
+                        <h3>Hello</h3>
+                    {% endif %}
                 </div>
             </div>
         </div>
