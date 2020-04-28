@@ -8,7 +8,7 @@
             <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="{{ url_for('accountView', user_name=post.author.username) }}">{{ post.author.username }}</a>
-                <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+                <small class="text-muted">Post published at: {{ post.date_posted.strftime('%Y-%m-%d %H:%M') }}</small>
                 {% if current_user == post.author %}
                     <small class="text-muted"><a style="text-align: right;" href="{{ url_for('post', post_id=post.id) }}">Edit</a></small>
                 {% endif %}

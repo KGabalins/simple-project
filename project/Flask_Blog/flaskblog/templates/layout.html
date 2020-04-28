@@ -66,9 +66,15 @@
                     {% if current_user.is_authenticated %}
                         <h3>Logged in as: </h3>
                         <h4><img class="rounded-circle logged-in-img" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="">
-                        <a style="color: black;" href="{{url_for('account')}}">{{ current_user.username }}</a></h4>
+                        <a style="color:rgb(61, 60, 60);" href="{{url_for('account')}}">{{ current_user.username }}</a></h4>
                     {% else %}
-                        <h3>Hello</h3>
+                    <div class="article-metadata">
+                    
+                        <h3>Current state:</h3>
+                        <h4 style="color:cadetblue;">Guest</h4>
+                    </div>
+                        <p>Press 'Login' or 'Register'</p>
+                        <p>To create your own posts!</p>
                     {% endif %}
                 </div>
             </div>
